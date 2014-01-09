@@ -1,12 +1,12 @@
 ##########################################################
 #
 #	Author: Stephen J. Hilt
-#			hilt@digitalbond.com
+#		hilt@digitalbond.com
 #
 #
 #	This Will listen on the drone cell for a Text Message
 #	Once specified Message is received, it will then send
-#   Stop CPU command on the given network. 
+#   	Stop CPU command on the given network. 
 #
 #
 #########################################################
